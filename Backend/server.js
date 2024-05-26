@@ -17,6 +17,7 @@ app.get('/api/chat',(req,res)=>
 
     res.send(chats)
 })
+app.use(express.json())
 app.get('/api/chat/:id',(req,res)=>
 {
     // console.log(req.params.id)
