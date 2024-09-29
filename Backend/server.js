@@ -2,7 +2,7 @@ import express from 'express';
 import  {chats}  from './data/data.js';
 import dotenv from 'dotenv';
 import { connect } from 'mongoose';
-import connecDB from './DB/db.js';
+import connecDB from './config/db.js';
 import UserRouter from './routes/UserRoutes.js';
 const app=express();
 dotenv.config()
