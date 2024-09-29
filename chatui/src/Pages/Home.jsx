@@ -1,12 +1,17 @@
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
 import { Terminal } from "lucide-react"
 import companyLogo from '../assets/vite.svg';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useState } from "react";
+import axios from "axios";
+
+
+
 
 function Homepage() {
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

@@ -2,19 +2,45 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const signup = () => {
+const Signup = () => {
   const [show, setShow] = useState();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const postDetails=(img)=>{
-
-  }
-  const submit=()=>{
-
-  }
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const postDetails = (img) => {
+    setLoading(true);
+    if (img === undefined) {
+      console.log("unable to upload");
+    }
+    if (img.type == "image/jpeg") {
+      console.log("failed");
+    }
+  };
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    console.log("in fuc");
+    if (!name || !email | !confirmPassword || !password) {
+      console.log("fill all the details");
+    }
+    try {
+      const config = {
+        header: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post("/api/user", { name, email, password });
+      navigate("/chats");
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -28,13 +54,24 @@ const signup = () => {
           <form className="space-y-6" action="#" method="POST">
             <div>
               <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6"
+              >
+                name
+              </label>
+              <div className="mt-2">
+                <Input onChange={(e) => setName(e.target.value)} />
+              </div>
+            </div>
+            <div>
+              <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6"
               >
                 Email address
               </label>
               <div className="mt-2">
-                <Input />
+                <Input onChange={(e) => setEmail(e.target.value)} />
               </div>
             </div>
             <div>
@@ -47,7 +84,10 @@ const signup = () => {
                 </label>
               </div>
               <div className="mt-2">
-                <Input type="password" />
+                <Input
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
             </div>
             <div>
@@ -70,16 +110,18 @@ const signup = () => {
                 id="picture"
                 accept="image/*"
                 type="file"
-                onChange={()=>{
-                  postDetails(e.target.files[0])
+                onChange={() => {
+                  postDetails(e.target.files[0]);
                 }}
               />
             </div>
             <div className=" items-center ">
-              <Button type="submit">Signup</Button>
+              <Button type="submit" onClick={submit}>
+                Signup
+              </Button>
 
-              <Link to="Login" className="link" relative="/Login">
-                Log in
+              <Link to="signup" className="link" relative="/">
+                Login
               </Link>
             </div>
           </form>
@@ -89,4 +131,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;
