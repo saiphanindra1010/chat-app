@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from "../models/userModel.js"
 import generateToken from './generateToken.js';
+
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, pic } = req.body
     if (!name || !email  || !password) {
@@ -9,12 +10,6 @@ const registerUser = asyncHandler(async (req, res) => {
     }
     const UserExist = await User.findOne({ email })
     console.log(UserExist)
-    if (UserExist) {
-        res.status(400)
-        throw new Error("user already exist")
-    }
-
-
     if (UserExist) {
         res.status(400)
         throw new Error("user already exist")

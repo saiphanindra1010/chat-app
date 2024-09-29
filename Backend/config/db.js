@@ -4,7 +4,7 @@ const connectDB=async()=>
     {
         try
         {
-            const conn=await mongoose.connect("mongodb://localhost:27017/e-commerce")
+            const conn=await mongoose.connect("mongodb://localhost:27017/schat")
         console.log("db connected")
         }
         catch(error)
